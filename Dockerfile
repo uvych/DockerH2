@@ -11,7 +11,7 @@ RUN ln -s $(ls /h2/bin/*jar) /h2/bin/h2.jar
 
 RUN mkdir /docker-entrypoint-initdb.d
 
-RUN echo 'CREATE ALIAS IF NOT EXISTS MYFUNCTION AS $$ String mrpc9000(String inv , String out) throws Exception {out = inv; return out;} $$' > /docker-entrypoint-initdb.d/my-db-name.sql
+COPY my-db-name.sql  /docker-entrypoint-initdb.d/
 
 VOlUME /h2-data
 
