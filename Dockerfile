@@ -1,15 +1,12 @@
-FROM openjdk:latest
+FROM java:7
 
 ENV H2DATA /h2-data
 ENV RELEASE_DATE 2017-04-23
 
-RUN curl http://www.h2database.com/h2-$RELEASE_DATE.zip -o h2.zip \ 
-&& unzip h2.zip -d . \ 
-&& rm h2.zip
+COPY h2 /h2/
 
-RUN ln -s $(ls /h2/bin/*jar) /h2/bin/h2.jar
-
-RUN mkdir /docker-entrypoint-initdb.d
+RUN ln -s $(ls /h2/bin/*jar) /h2/bin/h2.jar \
+&& mkdir /docker-entrypoint-initdb.d
 
 COPY my-db-name.sql  /docker-entrypoint-initdb.d/
 
